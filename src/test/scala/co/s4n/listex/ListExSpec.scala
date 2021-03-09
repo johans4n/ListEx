@@ -24,7 +24,6 @@ class ListExSpec extends AnyFlatSpec with Matchers {
     ListEx.subs(list).sortBy(_.length) shouldEqual result
   }
 
-
   "4. permute(List(1,2))" should "List(List(1, 2), List(2, 1))" in {
     val list = List(1, 2)
     val result = List(List(1, 2), List(2, 1))
@@ -261,7 +260,7 @@ class ListExSpec extends AnyFlatSpec with Matchers {
     ListEx.pack(list) shouldEqual result
   }
 
-  "43. myrndSelect((List('a', 'b', 'c', 'd', 'e', 'f'))" should " rndm Elements selected on a list" in {
+  /*"43. myrndSelect((List('a', 'b', 'c', 'd', 'e', 'f'))" should " rndm Elements selected on a list" in {
     val list = List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
     val result = "A"
     ListEx.myrndSelect(list, 4) shouldEqual result
@@ -272,7 +271,7 @@ class ListExSpec extends AnyFlatSpec with Matchers {
     ListEx.mydiffSelect(6, 49) shouldEqual result
   }
 
-  "45. mypermuteSelect(List('a', 'b', 'c', 'd', 'e', 'f')" should " A permutation of a list " in {
+  "45. myRndmPermute(List('a', 'b', 'c', 'd', 'e', 'f')" should " A permutation of a list " in {
     val list = List('a', 'b', 'c', 'd', 'e', 'f')
     val result = "A"
     ListEx.myRndmPermute(list) shouldEqual result
@@ -283,42 +282,131 @@ class ListExSpec extends AnyFlatSpec with Matchers {
     val result = "A"
     ListEx.myRndmPermute2(list) shouldEqual result
   }
+*/
 
-  "47. myCombinations(List('a', 'b', 'c', 'd', 'e', 'f'))" should " List(1,2,3,4)" in {
+  "47. myCombinations(List('a', 'b', 'c', 'd', 'e', 'f'))" should " result" in {
     val list = List('a', 'b', 'c', 'd', 'e', 'f')
-    val result = "A"
+    val result = List(List('a', 'b', 'c'), List('b', 'a', 'c'), List('b', 'c', 'a'),
+      List('a', 'c', 'b'), List('c', 'a', 'b'), List('c', 'b', 'a'), List('a', 'b', 'd'),
+      List('b', 'a', 'd'), List('b', 'd', 'a'), List('a', 'd', 'b'), List('d', 'a', 'b'),
+      List('d', 'b', 'a'), List('a', 'b', 'e'), List('b', 'a', 'e'), List('b', 'e', 'a'),
+      List('a', 'e', 'b'), List('e', 'a', 'b'), List('e', 'b', 'a'), List('a', 'b', 'f'),
+      List('b', 'a', 'f'), List('b', 'f', 'a'), List('a', 'f', 'b'), List('f', 'a', 'b'),
+      List('f', 'b', 'a'))
     ListEx.mycombinations(list, 3) shouldEqual result
   }
 
   "48. encode(List(1,1,1,1,2,3,4,4,4))" should "  List((4,1), (1,2), (1,3), (3,4))" in {
     val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
-    val result = List((4,1), (1,2), (1,3), (3,4))
+    val result = List((4, 1), (1, 2), (1, 3), (3, 4))
     ListEx.encode(list) shouldEqual result
   }
 
   "49. encode(List('a', 'a', 'c', 'c', 'c', 'f','k', 'k','k','k'))" should " List((2,'a'), (3,'c'), (1,'f'), (4,'k')) " in {
-    val list = List('a', 'a', 'c', 'c', 'c', 'f','k', 'k','k','k')
-    val result = List((2,'a'), (3,'c'), (1,'f'), (4,'k'))
+    val list = List('a', 'a', 'c', 'c', 'c', 'f', 'k', 'k', 'k', 'k')
+    val result = List((2, 'a'), (3, 'c'), (1, 'f'), (4, 'k'))
     ListEx.encode(list) shouldEqual result
   }
 
   "50. encodeModified(List('a', 'a', 'c', 'c', 'c', 'f','k', 'k','k','k'))" should " List((2,a), (3,c), 'f', (4,k))" in {
-    val list = List('a', 'a', 'c', 'c', 'c', 'f','k', 'k','k','k')
-    val result = List((2,'a'), (3,'c'), (1,'f'), (4,'k'))
+    val list = List('a', 'a', 'c', 'c', 'c', 'f', 'k', 'k', 'k', 'k')
+    val result = List((2, 'a'), (3, 'c'), 'f', (4, 'k'))
     ListEx.encodeModified(list) shouldEqual result
   }
 
   "51. encodeModified(List(1, 1, 1, 1, 2, 3, 4, 4, 4))" should " List((4,1), 2, 3, (3,4))" in {
     val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
-    val result = List((4,1), 2, 3, (3,4))
+    val result = List((4, 1), 2, 3, (3, 4))
     ListEx.encodeModified(list) shouldEqual result
   }
 
-  "52. decodeModified(List('a', 'a', 'c', 'c', 'c', 'f','k', 'k','k','k'))" should " List((2,a), (3,c), 'f', (4,k))" in {
-    val list = List((4,1), 2, 3, (3,4))
-    val result = List((4,1), 2, 3, (3,4))
+  "52. decodeModified(List((4, 'a'), 'b', 'c', (3, 'd')))" should "List('a', 'a', 'a', 'a', 'b', 'c', 'd', 'd', 'd')" in {
+    val list = List((4, 'a'), 'b', 'c', (3, 'd'))
+    val result = List('a', 'a', 'a', 'a', 'b', 'c', 'd', 'd', 'd')
     ListEx.decodeModified(list) shouldEqual result
   }
 
+  "53. decodeModified(List((4, 1), 2, 3, (3, 4)))" should " List(1, 1, 1, 1, 2, 3, 4, 4, 4)" in {
+    val list = List((4, 1), 2, 3, (3, 4))
+    val result = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    ListEx.decodeModified(list) shouldEqual result
+  }
+
+  "54. encodeDirect(List('a', 'a', 'c', 'c', 'c', 'f','k', 'k','k','k'))" should " List((2,a), (3,c), 'f', (4,k))" in {
+    val list = List('a', 'a', 'c', 'c', 'c', 'f', 'k', 'k', 'k', 'k')
+    val result = List((2, 'a'), (3, 'c'), 'f', (4, 'k'))
+    ListEx.encodeDirect(list) shouldEqual result
+  }
+
+  "55. encodeDirect(List(1, 1, 1, 1, 2, 3, 4, 4, 4))" should " List((4,1), 2, 3, (3,4))" in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = List((4, 1), 2, 3, (3, 4))
+    ListEx.encodeDirect(list) shouldEqual result
+  }
+
+  "56. dupli(List(1, 1, 1, 1, 2, 3, 4, 4, 4))" should " List(1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4)" in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = List(1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4)
+    ListEx.dupli(list) shouldEqual result
+  }
+
+  "57. dupli(List('a','b','c'))" should " List('a', 'a', 'b', 'b', 'c', 'c')" in {
+    val list = List('a', 'b', 'c')
+    val result = List('a', 'a', 'b', 'b', 'c', 'c')
+    ListEx.dupli(list) shouldEqual result
+  }
+
+  "58. repli(List(1, 1, 1, 1, 2, 3, 4, 4, 4),2)" should " List(1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4)" in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = List(1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4)
+    ListEx.repli(list, 2) shouldEqual result
+  }
+
+  "59. repli(List('a','b','c'),3)" should " List('a', 'a', 'b', 'b', 'c', 'c')" in {
+    val list = List('a', 'b', 'c')
+    val result = List('a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c')
+    ListEx.repli(list, 3) shouldEqual result
+  }
+
+  "60. drop(List(1, 1, 1, 1, 2, 3, 4, 4, 4),2)" should "List(1, 1, 2, 4, 4) " in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = List(1, 1, 2, 4, 4)
+    ListEx.drop(list, 2) shouldEqual result
+  }
+
+  "61. drop(List(1, 1, 1, 1, 2, 3, 4, 4, 4),3)" should " List(1, 1, 1, 2, 4, 4)  " in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = List(1, 1, 1, 2, 4, 4)
+    ListEx.drop(list, 3) shouldEqual result
+  }
+
+  "62. split(List(1, 1, 1, 1, 2, 3, 4, 4, 4),3)" should " (List(1, 1, 1), List(1, 2, 3, 4, 4, 4)) " in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = (List(1, 1, 1), List(1, 2, 3, 4, 4, 4))
+    ListEx.split(3, list) shouldEqual result
+  }
+
+  "63. slice(List(1, 1, 1, 1, 2, 3, 4, 4, 4),2,5)" should " List(1, 1, 1, 2)" in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = List(1, 1, 1, 2)
+    ListEx.slice(list, 2, 5) shouldEqual result
+  }
+
+  "64. removeAt(List(1, 1, 1, 1, 2, 3, 4, 4, 4),5)" should "List(1, 1, 1, 1, 3, 4, 4, 4)" in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = List(1, 1, 1, 1, 3, 4, 4, 4)
+    ListEx.removeAt(list, 5)._2 shouldEqual result
+  }
+
+  "64. insertAt('a',List(1, 1, 1, 1, 2, 3, 4, 4, 4),5)" should " List(1, 1, 1, 1, 'a', 2, 3, 4, 4, 4)" in {
+    val list = List(1, 1, 1, 1, 2, 3, 4, 4, 4)
+    val result = List(1, 1, 1, 1, 'a', 2, 3, 4, 4, 4)
+    ListEx.insertAt('a', list, 5) shouldEqual result
+  }
+
+  "64. range(1,10)" should " LList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) " in {
+    val result = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    ListEx.range(1, 10) shouldEqual result
+  }
 
 }
